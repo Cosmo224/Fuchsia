@@ -30,11 +30,15 @@ namespace Fuchsia.InformationEngine
 
         internal void FAboutInit()
         {
-            FuchsiaVersionInformation.Text = $"{FVersion.Version.Major}.{FVersion.Version.Minor} (build {FVersion.Version.Build}.{FVersion.Version.Revision})";
-            FuchsiaVersionInformation_BuildDate.Text = FVersion.BuildTime.ToString();
-            FuchsiaVersionInformation_Status.Text = FVersion.Status;
-            FuchsiaVersionInformation_Debug.Text = FVersion.DebugStatus.ToString();
-            FuchsiaVersionInformation_UpdateAvailable.Visibility = Visibility.Hidden;
+            FuchsiaVersionInformation.Text = $"Version {FVersion.Version.Major}.{FVersion.Version.Minor} (build {FVersion.Version.Build}.{FVersion.Version.Revision})";
+            FuchsiaVersionInformation_BuildDate.Text = $"Build date: {FVersion.BuildTime.ToString()}";
+            FuchsiaVersionInformation_Status.Text = $"Status: {FVersion.Status}";
+            FuchsiaVersionInformation_Debug.Text = $"Debug mode: {FVersion.DebugStatus.ToString()}";
+        }
+
+        private void FuchsiaExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 

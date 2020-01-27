@@ -8,13 +8,13 @@
     <Grid x:Name="FuchsiaAbout_Core">
         <TextBlock x:Name="FuchsiaBranding" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Fuchsia" VerticalAlignment="Top" Height="92" Width="243" FontSize="72" Foreground="White"/>
         <TextBlock x:Name="FuchsiaBrandingInformationEngine" HorizontalAlignment="Left" Margin="15,79,0,0" TextWrapping="Wrap" Text="information engine" VerticalAlignment="Top" FontSize="20" Foreground="White"/>
-        <Button x:Name="FuchsiaExit" Content="exit" HorizontalAlignment="Left" Margin="388,341,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FFDCFF00" Background="#56DCFF00" Height="30"/>
         <TextBlock x:Name="FuchsiaVersionInformation" HorizontalAlignment="Left" Margin="15,108,0,0" TextWrapping="Wrap" Text="Version: " VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16"/>
-        <TextBlock x:Name="FuchsiaVersionInformation_BuildDate" HorizontalAlignment="Left" Margin="15,131,0,0" TextWrapping="Wrap" Text="Build Date: " VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16"/>
+        <TextBlock x:Name="FuchsiaVersionInformation_BuildDate" HorizontalAlignment="Left" Margin="15,131,0,0" TextWrapping="Wrap" Text="Build date: " VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16"/>
         <TextBlock x:Name="FuchsiaVersionInformation_Status" HorizontalAlignment="Left" Margin="15,154,0,0" TextWrapping="Wrap" Text="Status: " VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16"/>
-        <TextBlock x:Name="FuchsiaVersionInformation_Debug" HorizontalAlignment="Left" Margin="15,177,0,0" TextWrapping="Wrap" Text="Debug mode status: " VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16"/>
-        <TextBlock x:Name="FuchsiaVersionInformation_UpdateAvailable" HorizontalAlignment="Left" Margin="15,242,0,0" TextWrapping="Wrap" Text="An update is available!" VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16" FontStyle="Italic"/>
-        <TextBlock x:Name="FuchsiaVersionInformation_UpdateVersion" HorizontalAlignment="Left" Margin="15,265,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16" FontStyle="Italic"/>
-        <Button x:Name="FuchsiaExit_Copy" Content="update" HorizontalAlignment="Left" Margin="15,293,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FFDCFF00" Background="#56DCFF00" Height="30" Visibility="Hidden"/>
+        <TextBlock x:Name="FuchsiaVersionInformation_Debug" HorizontalAlignment="Left" Margin="15,177,0,0" TextWrapping="Wrap" Text="Debug mode: " VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16"/>
+        <TextBlock x:Name="FuchsiaVersionInformation_UpdateAvailable" HorizontalAlignment="Left" Margin="15,242,0,0" TextWrapping="Wrap" Text="An update is available!" VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16" FontStyle="Italic" Visibility="Hidden"/>
+        <TextBlock x:Name="FuchsiaVersionInformation_UpdateVersion" HorizontalAlignment="Left" Margin="15,265,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Height="23" Width="448" FontSize="16" FontStyle="Italic" Visibility="Hidden"/>
+        <Button x:Name="FuchsiaUpdate" Content="update" HorizontalAlignment="Left" Margin="15,293,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FFDCFF00" Background="#56DCFF00" Height="30" Visibility="Hidden"/>
+        <Button x:Name="FuchsiaExit" Content="exit" HorizontalAlignment="Left" Margin="388,341,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FFDCFF00" Background="#56DCFF00" Height="30" Click="FuchsiaExit_Click"/>
     </Grid>
 </Window>
