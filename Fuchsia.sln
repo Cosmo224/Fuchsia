@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuchsia", "Fuchsia\Fuchsia.csproj", "{2B8A562F-2EA4-4CD8-9E7A-8B4BC52EBAAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuchsiaInformationEngine", "FuchsiaApplicationEngine\FuchsiaInformationEngine.csproj", "{7B2EA61C-1A17-4A83-9478-C253FBBD3567}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B8A562F-2EA4-4CD8-9E7A-8B4BC52EBAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8A562F-2EA4-4CD8-9E7A-8B4BC52EBAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8A562F-2EA4-4CD8-9E7A-8B4BC52EBAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8A562F-2EA4-4CD8-9E7A-8B4BC52EBAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2EA61C-1A17-4A83-9478-C253FBBD3567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2EA61C-1A17-4A83-9478-C253FBBD3567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2EA61C-1A17-4A83-9478-C253FBBD3567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2EA61C-1A17-4A83-9478-C253FBBD3567}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5072B9C-A9D3-42D1-9213-9BBA9FC85D9E}
+	EndGlobalSection
+EndGlobal
