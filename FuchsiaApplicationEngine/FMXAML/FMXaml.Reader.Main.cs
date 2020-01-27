@@ -31,21 +31,8 @@ namespace Fuchsia.InformationEngine
                     switch (MXaml_Parse)
                     {
                         case MxamlNode.Paragraph: // Temporary code for development of FMXAML_Parse_Paragraph
-                            XmlNodeList FParagraphChildren = FPageContentElement.ChildNodes;
-
-                            foreach (XmlNode FParagraphChild in FParagraphChildren)
-                            {
-                                if (FParagraphChild.Name == "#comment") continue;
-                                MxamlNode MXamlChild_Parse = (MxamlNode)Enum.Parse(typeof(MxamlNode), FParagraphChild.Name);
-
-                                switch (MXamlChild_Parse)
-                                {
-                                    case MxamlNode.TextBlock:
-                                        BoxToPopulate = FMXAML_Parse_TextBlock(FParagraphChild, BoxToPopulate);
-                                        continue; 
-                                }
-                            }
-                            continue; 
+                            BoxToPopulate = FMXAML_Parse_Paragraph(FPageContentElement, BoxToPopulate);
+                            continue;
 
                         case MxamlNode.TextBlock:
                             BoxToPopulate = FMXAML_Parse_TextBlock(FPageContentElement, BoxToPopulate);
