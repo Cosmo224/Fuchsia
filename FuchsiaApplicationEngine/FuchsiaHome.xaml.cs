@@ -40,5 +40,16 @@ namespace Fuchsia.InformationEngine
         {
             this.Close();
         }
+
+        //lazy event handler...
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.LeftShift | e.Key == Key.RightShift) & Keyboard.IsKeyDown(Key.F9))
+            {
+                FuchsiaAbout FuchsiaAbout = new FuchsiaAbout();
+                FuchsiaAbout.Owner = this;
+                FuchsiaAbout.Show(); 
+            }
+        }
     }
 }
