@@ -28,6 +28,16 @@ namespace Fuchsia.InformationEngine
         }
 
         /// <summary>
+        /// Internal API for loading text.
+        /// </summary>
+        /// <returns>A paragraph object.</returns>
+        internal Paragraph FMXAML_TextAPI_CreateParagraph()
+        {
+            Paragraph _temppara = new Paragraph();
+            return _temppara;
+        }
+
+        /// <summary>
         /// 
         /// Internal API for loading text.
         /// 
@@ -67,6 +77,35 @@ namespace Fuchsia.InformationEngine
             return FTextBox;
         }
 
+        internal Paragraph FMXAML_TextAPI_AddText(Paragraph BlockToAdd, string Content, double FontSize = Double.NaN, string FontFamily = null, string FontStyle = null, int FontWght = Int32.MaxValue)
+        {
+            Inline _tempblock = new Run(Content);
+
+            if (FontFamily != null)
+            {
+                _tempblock = FMXAML_TextAPI_SetFontFamily(_tempblock, FontFamily); // CALL THE TEXTAPI to set the font family.
+            }
+
+            if (FontStyle != null)
+            {
+                _tempblock = FMXAML_TextAPI_SetFontStyle(_tempblock, FontStyle);
+            }
+
+            if (FontSize != Double.NaN)
+            {
+                _tempblock = FMXAML_TextAPI_SetFontSize(_tempblock, FontSize);
+            }
+
+            if (FontWght != Int32.MaxValue)
+            {
+                _tempblock = FMXAML_TextAPI_SetFontWeight(_tempblock, FontWght);
+            }
+
+            BlockToAdd.Inlines.Add(_tempblock);
+
+            return BlockToAdd;
+        }
+
         /// <summary>
         /// Internal API for loading text. Sets a text block's font family.
         /// </summary>
@@ -74,6 +113,20 @@ namespace Fuchsia.InformationEngine
         /// <param name="FontFamily">The font family in string form to set the Block's font family to.</param>
         /// <returns>A Block with the font family set.</returns>
         internal Block FMXAML_TextAPI_SetFontFamily(Block FBlockToSet, string FontFamily) // Sets the font family.
+        {
+            FontFamilyConverter _FontFamilyConverter = new FontFamilyConverter();
+            FontFamily _FinalFontFamily = (FontFamily)_FontFamilyConverter.ConvertFromString(FontFamily);
+            FBlockToSet.FontFamily = _FinalFontFamily;
+            return FBlockToSet;
+        }
+
+        /// <summary>
+        /// Internal API for loading text. Sets a text block's font family. (INLINE OVERLOAD)
+        /// </summary>
+        /// <param name="FBlockToSet">The Block to set the fontfamily of.</param>
+        /// <param name="FontFamily">The font family in string form to set the Block's font family to.</param>
+        /// <returns>An Inline with the font family set.</returns>
+        internal Inline FMXAML_TextAPI_SetFontFamily(Inline FBlockToSet, string FontFamily) // Sets the font family.
         {
             FontFamilyConverter _FontFamilyConverter = new FontFamilyConverter();
             FontFamily _FinalFontFamily = (FontFamily)_FontFamilyConverter.ConvertFromString(FontFamily);
@@ -96,6 +149,20 @@ namespace Fuchsia.InformationEngine
         }
 
         /// <summary>
+        /// Internal API for loading text. Sets a text block's font style. (INLINE OVERLOAD)
+        /// </summary>
+        /// <param name="FBlockToSet">The Block to set the font style of.</param>
+        /// <param name="FontStyle">The font family in string form to set the Block's font style to.</param>
+        /// <returns>An Inline with the font style set.</returns>
+        internal Inline FMXAML_TextAPI_SetFontStyle(Inline FBlockToSet, string FontStyle) // Sets the font style.
+        {
+            FontStyleConverter _FontStyleConverter = new FontStyleConverter();
+            FontStyle _FinalFontStyle = (FontStyle)_FontStyleConverter.ConvertFromString(FontStyle);
+            FBlockToSet.FontStyle = _FinalFontStyle;
+            return FBlockToSet;
+        }
+
+        /// <summary>
         /// Internal API for loading text. Sets a text block's font size.
         /// </summary>
         /// <param name="FBlockToSet">The Block to set the font size of.</param>
@@ -108,12 +175,30 @@ namespace Fuchsia.InformationEngine
         }
 
         /// <summary>
+        /// Internal API for loading text. Sets a text block's font size. (INLINE OVERLOAD)
+        /// </summary>
+        /// <param name="FBlockToSet">The Block to set the font size of.</param>
+        /// <param name="FontSize">The font family in string form to set the Block's font size to.</param>
+        /// <returns>An Inline with the font size set.</returns>
+        internal Inline FMXAML_TextAPI_SetFontSize(Inline FBlockToSet, double FontSize) // Sets the font size.
+        {
+            FBlockToSet.FontSize = FontSize;
+            return FBlockToSet;
+        }
+
+        /// <summary>
         /// Internal API for loading text. Sets a text block's font weight.
         /// </summary>
         /// <param name="FBlockToSet">The Block to set the font weight of.</param>
         /// <param name="FontWght">The font family in string form to set the Block's font weight to.</param>
         /// <returns>A Block with the font weight set.</returns>
         internal Block FMXAML_TextAPI_SetFontWeight(Block FBlockToSet, int FontWght) // Sets the font weight.
+        {
+            FBlockToSet.FontWeight = FontWeight.FromOpenTypeWeight(FontWght);
+            return FBlockToSet;
+        }
+
+        internal Inline FMXAML_TextAPI_SetFontWeight(Inline FBlockToSet, int FontWght) // Sets the font weight.
         {
             FBlockToSet.FontWeight = FontWeight.FromOpenTypeWeight(FontWght);
             return FBlockToSet;

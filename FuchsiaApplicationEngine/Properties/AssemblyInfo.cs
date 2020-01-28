@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Fuchsia Information Engine")]
+[assembly: AssemblyTitle("Fuchsia Information Engine Alpha SDK")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Fuchsia Information Engine")]
+[assembly: AssemblyProduct("Fuchsia Information Engine Alpha SDK")]
 [assembly: AssemblyCopyright("Copyright © Cosmo 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

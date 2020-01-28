@@ -12,7 +12,7 @@ namespace Fuchsia.InformationEngine
     public partial class FMXamlReader
     {
         
-        internal RichTextBox FMXAML_Parse_TextBlock(XmlNode NodeToParse, RichTextBox BoxToPopulate)
+        internal RichTextBox FMXAML_Parse_TextBlock(XmlNode NodeToParse, RichTextBox BoxToPopulate, bool ParagraphMode = false)
         {
             XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
 
