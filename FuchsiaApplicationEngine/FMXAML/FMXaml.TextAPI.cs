@@ -106,6 +106,12 @@ namespace Fuchsia.InformationEngine
             return BlockToAdd;
         }
 
+        internal RichTextBox FMXAML_TextAPI_AddParagraphToTextBox(RichTextBox FRichTextBoxToAdd, Paragraph FParagraphToAdd)
+        {
+            FRichTextBoxToAdd.Document.Blocks.Add(FParagraphToAdd);
+            return FRichTextBoxToAdd;
+        }
+
         /// <summary>
         /// Internal API for loading text. Sets a text block's font family.
         /// </summary>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Fuchsia.InformationEngine
 {
@@ -18,8 +19,14 @@ namespace Fuchsia.InformationEngine
 
             foreach (XmlAttribute FXmlAttribute in FXmlNodeAttributes)
             {
+                if (ParagraphMode)
+                {
+                    Paragraph TheParagraph = FMXAML_TextAPI_CreateParagraph();
+                }
+
                 switch (FXmlAttribute.Name) // TEMP, Pre-Factory Class code.
                 {
+ 
                     case "content":
                     case "Content":
                         try
