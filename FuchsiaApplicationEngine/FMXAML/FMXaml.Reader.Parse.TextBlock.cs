@@ -24,7 +24,14 @@ namespace Fuchsia.InformationEngine
                     case "Content":
                         try
                         {  //TEMPCODE
-                            BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
+                            switch (ParagraphMode)
+                            {
+                                case false:
+                                    BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
+                                    continue;
+                                //default:
+                                    //BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value,)
+                            }
                         }
                         catch (NotImplementedException)
                         {
