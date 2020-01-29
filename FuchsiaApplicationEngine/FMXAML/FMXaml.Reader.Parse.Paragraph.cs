@@ -28,7 +28,7 @@ namespace Fuchsia.InformationEngine
 
                 if (ParagraphMode)
                 {
-                    ragraph TheParagraph = FMXAML_TextAPI_CreateParagraph();
+                    TheParagraph = FMXAML_TextAPI_CreateParagraph();
                 }
 
                 MxamlNode MXamlChild_Parse = (MxamlNode)Enum.Parse(typeof(MxamlNode), FParagraphChild.Name);
