@@ -23,7 +23,6 @@ namespace Fuchsia.InformationEngine
 
                 switch (FXmlAttribute.Name) // TEMP, Pre-Factory Class code.
                 {
- 
                     case "content":
                     case "Content":
                         try
