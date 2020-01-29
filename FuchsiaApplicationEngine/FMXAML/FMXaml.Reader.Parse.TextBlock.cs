@@ -19,10 +19,7 @@ namespace Fuchsia.InformationEngine
 
             foreach (XmlAttribute FXmlAttribute in FXmlNodeAttributes)
             {
-                if (ParagraphMode)
-                {
-                    Paragraph TheParagraph = FMXAML_TextAPI_CreateParagraph();
-                }
+                
 
                 switch (FXmlAttribute.Name) // TEMP, Pre-Factory Class code.
                 {
@@ -36,8 +33,9 @@ namespace Fuchsia.InformationEngine
                                 case false:
                                     BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
                                     continue;
-                                //default:
-                                    //BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value,)
+                                default:
+                                    BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
+                                    continue; 
                             }
                         }
                         catch (NotImplementedException)
