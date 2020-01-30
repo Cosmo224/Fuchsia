@@ -23,14 +23,13 @@ namespace Fuchsia.InformationEngine
             Paragraph TheParagraph = new Paragraph();
             XmlNodeList FParagraphChildren = FPageContentElement.ChildNodes;
 
+            TheParagraph = FMXAML_TextAPI_CreateParagraph();
+
             foreach (XmlNode FParagraphChild in FParagraphChildren)
             {
                 if (FParagraphChild.Name == "#comment") continue;
 
-                if (ParagraphMode)
-                {
-                    TheParagraph = FMXAML_TextAPI_CreateParagraph();
-                }
+
 
                 MxamlNode MXamlChild_Parse = (MxamlNode)Enum.Parse(typeof(MxamlNode), FParagraphChild.Name);
 
@@ -44,12 +43,6 @@ namespace Fuchsia.InformationEngine
                                 continue;
                             case true:
                                 TheParagraph = FMXAML_Parse_TextBlock(FParagraphChild, TheParagraph);
-
-                                if (TheParagraph.Inlines.Count > 0)
-                                {
-                                    BoxToPopulate = FMXAML_TextAPI_AddParagraphToTextBox(BoxToPopulate, TheParagraph);
-                                }
-
                                 continue; 
                         }
                         continue;
@@ -60,6 +53,12 @@ namespace Fuchsia.InformationEngine
 
                 
             }
+
+            if (TheParagraph.Inlines.Count > 0)
+            {
+                BoxToPopulate = FMXAML_TextAPI_AddParagraphToTextBox(BoxToPopulate, TheParagraph);
+            }
+
             return BoxToPopulate;
         }
     }

@@ -173,10 +173,18 @@ namespace Fuchsia.InformationEngine
         /// <returns>An Inline with the font style set.</returns>
         internal Inline FMXAML_TextAPI_SetFontStyle(Inline FBlockToSet, string FontStyle) // Sets the font style.
         {
-            FontStyleConverter _FontStyleConverter = new FontStyleConverter();
-            FontStyle _FinalFontStyle = (FontStyle)_FontStyleConverter.ConvertFromString(FontStyle);
-            FBlockToSet.FontStyle = _FinalFontStyle;
-            return FBlockToSet;
+            try
+            {
+                FontStyleConverter _FontStyleConverter = new FontStyleConverter();
+                FontStyle _FinalFontStyle = (FontStyle)_FontStyleConverter.ConvertFromString(FontStyle);
+                FBlockToSet.FontStyle = _FinalFontStyle;
+                return FBlockToSet;
+            }
+            catch (FormatException err)
+            {
+                FError.ThrowError(15, "An invalid string was supplied.", FErrorSeverity.FatalError, err);
+                return null; 
+            }
         }
 
         /// <summary>

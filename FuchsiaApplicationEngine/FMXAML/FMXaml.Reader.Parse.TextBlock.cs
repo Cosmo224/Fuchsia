@@ -60,7 +60,6 @@ namespace Fuchsia.InformationEngine
                 {
                     case "content":
                     case "Content":
-        
                         try
                         {  //TEMPCODE
                             TextToAdd = FMXAML_TextAPI_AddText(ParaToPopulate, FXmlAttribute.Value, 18);
@@ -73,6 +72,21 @@ namespace Fuchsia.InformationEngine
                         continue;
                     case "fontstyle":
                     case "FontStyle":
+                        string FXmlAttributeValue = FXmlAttribute.Value;
+
+                        if (FXmlAttributeValue.Contains("bold"))
+                        {
+                            TextToAdd = FMXAML_TextAPI_SetFontWeight(TextToAdd, 500); //temp
+                        }
+                        else if (FXmlAttributeValue.Contains("italic"))
+                        {
+                            TextToAdd = FMXAML_TextAPI_SetFontStyle(TextToAdd, "Italic");
+                        }
+                        else if (FXmlAttributeValue.Contains("oblique"))
+                        {
+                            TextToAdd = FMXAML_TextAPI_SetFontStyle(TextToAdd, "Oblique");
+                        }
+
                         continue;
                 }
             }
