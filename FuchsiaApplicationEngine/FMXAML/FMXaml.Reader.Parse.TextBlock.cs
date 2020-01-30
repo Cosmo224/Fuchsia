@@ -19,7 +19,6 @@ namespace Fuchsia.InformationEngine
 
             foreach (XmlAttribute FXmlAttribute in FXmlNodeAttributes)
             {
-                
 
                 switch (FXmlAttribute.Name) // TEMP, Pre-Factory Class code.
                 {
@@ -27,15 +26,7 @@ namespace Fuchsia.InformationEngine
                     case "Content":
                         try
                         {  //TEMPCODE
-                            switch (ParagraphMode)
-                            {
-                                case false:
-                                    BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
-                                    continue;
-                                default:
-                                    BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
-                                    continue; 
-                            }
+                            BoxToPopulate = FMXAML_TextAPI_AddText(BoxToPopulate, FXmlAttribute.Value, 18);
                         }
                         catch (NotImplementedException)
                         {
@@ -49,6 +40,36 @@ namespace Fuchsia.InformationEngine
             }
 
             return BoxToPopulate;
+        }
+
+        internal Paragraph FMXAML_Parse_TextBlock(XmlNode NodeToParse, Paragraph ParaToPopulate, bool ParagraphMode = false)
+        {
+            XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
+
+            foreach (XmlAttribute FXmlAttribute in FXmlNodeAttributes)
+            {
+
+                switch (FXmlAttribute.Name) // TEMP, Pre-Factory Class code.
+                {
+                    case "content":
+                    case "Content":
+        
+                        try
+                        {  //TEMPCODE
+                            ParaToPopulate = FMXAML_TextAPI_AddText(ParaToPopulate, FXmlAttribute.Value, 18);
+                        }
+                        catch (NotImplementedException)
+                        {
+                            FError.ThrowError(12, $"API call not implemented", FErrorSeverity.FatalError);
+                        }
+                        continue;
+                    case "fontstyle":
+                    case "FontStyle":
+                        continue;
+                }
+            }
+
+            return ParaToPopulate;
         }
     }
 }
