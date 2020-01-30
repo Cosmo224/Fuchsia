@@ -12,8 +12,13 @@ namespace Fuchsia.InformationEngine
     internal enum FMXamlTextBlockAttributes { Content, FontStyle, FontSize, FontWeight, FontFamily, FontColour } // preparation
     public partial class FMXamlReader
     {
-        
-        internal RichTextBox FMXAML_Parse_TextBlock(XmlNode NodeToParse, RichTextBox BoxToPopulate, bool ParagraphMode = false)
+        /// <summary>
+        /// Internal API for parsing textblocks.
+        /// </summary>
+        /// <param name="NodeToParse">The node to parse.</param>
+        /// <param name="BoxToPopulate">The richtextbox to populate. </param>
+        /// <returns></returns>
+        internal RichTextBox FMXAML_Parse_TextBlock(XmlNode NodeToParse, RichTextBox BoxToPopulate)
         {
             XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
 
@@ -42,7 +47,7 @@ namespace Fuchsia.InformationEngine
             return BoxToPopulate;
         }
 
-        internal Paragraph FMXAML_Parse_TextBlock(XmlNode NodeToParse, Paragraph ParaToPopulate, bool ParagraphMode = false)
+        internal Paragraph FMXAML_Parse_TextBlock(XmlNode NodeToParse, Paragraph ParaToPopulate)
         {
             XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
 

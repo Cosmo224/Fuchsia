@@ -36,12 +36,28 @@ namespace Fuchsia.InformationEngine
                 switch (MXamlChild_Parse)
                 {
                     case MxamlNode.TextBlock:
-                        BoxToPopulate = FMXAML_Parse_TextBlock(FParagraphChild, BoxToPopulate, ParagraphMode);
+                        switch (ParagraphMode)
+                        {
+                            case false:
+                                BoxToPopulate = FMXAML_Parse_TextBlock(FParagraphChild, BoxToPopulate);
+                                continue;
+                            case true:
+                                TheParagraph = FMXAML_Parse_TextBlock(FParagraphChild, TheParagraph);
+
+                                if (TheParagraph.Inlines.Count > 0)
+                                {
+                                    BoxToPopulate = FMXAML_TextAPI_AddParagraphToTextBox(BoxToPopulate, TheParagraph);
+                                }
+
+                                continue; 
+                        }
                         continue;
                     default:
                         FError.ThrowError(14, "An invalid mXAML node was found.", FErrorSeverity.FatalError);
                         continue; 
                 }
+
+                
             }
             return BoxToPopulate;
         }
