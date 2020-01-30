@@ -16,6 +16,7 @@ namespace Fuchsia.InformationEngine
         /// </summary>
         /// <param name="BoxToPopulate">The box to populate </param>
         /// <param name="FPageContentElement">The xmlnode to use to parse the subnodes of the Paragraph.</param>
+        /// <param name="ParagraphMode">DEPRECATED - DO NOT USE - ***WILL BE REMOVED!***</param>
         /// <returns></returns>
         internal RichTextBox FMXAML_Parse_Paragraph(XmlNode FPageContentElement, RichTextBox BoxToPopulate, bool ParagraphMode = true) // Parses a paragraph.
         {

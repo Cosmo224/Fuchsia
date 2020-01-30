@@ -77,7 +77,7 @@ namespace Fuchsia.InformationEngine
             return FTextBox;
         }
 
-        internal Paragraph FMXAML_TextAPI_AddText(Paragraph BlockToAdd, string Content, double FontSize = Double.NaN, string FontFamily = null, string FontStyle = null, int FontWght = Int32.MaxValue)
+        internal Inline FMXAML_TextAPI_AddText(Paragraph BlockToAdd, string Content, double FontSize = Double.NaN, string FontFamily = null, string FontStyle = null, int FontWght = Int32.MaxValue)
         {
             Inline _tempblock = new Run(Content);
 
@@ -101,11 +101,22 @@ namespace Fuchsia.InformationEngine
                 _tempblock = FMXAML_TextAPI_SetFontWeight(_tempblock, FontWght);
             }
 
-            BlockToAdd.Inlines.Add(_tempblock);
+            return _tempblock;
+        }
+
+        internal Paragraph FMXAML_TextAPI_AddTextToParagraph(Paragraph BlockToAdd, Inline TextToAdd)
+        {
+            BlockToAdd.Inlines.Add(TextToAdd);
 
             return BlockToAdd;
         }
 
+        /// <summary>
+        /// Internal API for loading text. Adds text to a textbox.
+        /// </summary>
+        /// <param name="FRichTextBoxToAdd"></param>
+        /// <param name="FParagraphToAdd"></param>
+        /// <returns></returns>
         internal RichTextBox FMXAML_TextAPI_AddParagraphToTextBox(RichTextBox FRichTextBoxToAdd, Paragraph FParagraphToAdd)
         {
             FRichTextBoxToAdd.Document.Blocks.Add(FParagraphToAdd);

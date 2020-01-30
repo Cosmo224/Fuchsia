@@ -51,6 +51,8 @@ namespace Fuchsia.InformationEngine
         {
             XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
 
+            Inline TextToAdd = new Run();
+
             foreach (XmlAttribute FXmlAttribute in FXmlNodeAttributes)
             {
 
@@ -61,7 +63,8 @@ namespace Fuchsia.InformationEngine
         
                         try
                         {  //TEMPCODE
-                            ParaToPopulate = FMXAML_TextAPI_AddText(ParaToPopulate, FXmlAttribute.Value, 18);
+                            TextToAdd = FMXAML_TextAPI_AddText(ParaToPopulate, FXmlAttribute.Value, 18);
+                            
                         }
                         catch (NotImplementedException)
                         {
@@ -73,6 +76,8 @@ namespace Fuchsia.InformationEngine
                         continue;
                 }
             }
+
+            ParaToPopulate = FMXAML_TextAPI_AddTextToParagraph(ParaToPopulate, TextToAdd);
 
             return ParaToPopulate;
         }
