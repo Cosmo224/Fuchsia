@@ -10,9 +10,9 @@
         Title="Error" Height="450" Width="637.532">
     <Grid x:Name="Grid">
         <TextBlock x:Name="Error_Error" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Error" VerticalAlignment="Top" Foreground="Fuchsia" FontSize="72"/>
-        <TextBlock x:Name="Error_Occurred" HorizontalAlignment="Left" Margin="15,79,0,0" TextWrapping="Wrap" Text="An error has occurred. The error information is below." VerticalAlignment="Top" Foreground="Fuchsia" FontSize="18" Height="29" Width="437"/>
+        <TextBlock x:Name="Error_Occurred" HorizontalAlignment="Left" Margin="15,79,0,0" TextWrapping="Wrap" Text="An error has occurred. The error information is located below." VerticalAlignment="Top" Foreground="Fuchsia" FontSize="18" Height="24" Width="499"/>
         <TextBlock x:Name="Error_FriendlyDesc" HorizontalAlignment="Left" Margin="15,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="Fuchsia" FontSize="16" Height="29" Width="499"/>
-        <TextBlock x:Name="Error_UnfriendlyDesc" HorizontalAlignment="Left" Margin="15,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="Fuchsia" FontSize="14" Height="215" Width="586"/>
+        <TextBox x:Name="Error_UnfriendlyDesc" HorizontalAlignment="Left" Margin="15,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="Fuchsia" FontSize="14" Height="215" Width="586" IsReadOnly="True"/>
         <Button x:Name="Error_OKButton" Content="OK" HorizontalAlignment="Left" Margin="526,377,0,0" VerticalAlignment="Top" Width="75" Click="Error_OKButton_Click"/>
 
     </Grid>

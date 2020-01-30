@@ -225,18 +225,29 @@ namespace Fuchsia.InformationEngine
 
         internal Inline FMXAML_TextAPI_SetFontWeight(Inline FBlockToSet, int FontWght) // Sets the font weight.
         {
+
+            if (FontWght < 1 | FontWght > 999)
+            {
+                FError.ThrowError(17, "The font weight must be between 1 and 999. The font weight has not been set.", FErrorSeverity.Warning);
+                return FBlockToSet;
+                
+            } 
+
             FBlockToSet.FontWeight = FontWeight.FromOpenTypeWeight(FontWght);
+
             return FBlockToSet;
         }
 
         internal Block FMXAML_TextAPI_SetFontFgColour(Block FBlockToSet, Color FontColour)
         {
-            throw new NotImplementedException();
+            FBlockToSet.Foreground = new SolidColorBrush(FontColour);
+            return FBlockToSet;
         }
 
         internal Block FMXAML_TextAPI_SetFontBgColour(Block FBlockToSet, Color FontColour)
         {
-            throw new NotImplementedException();
+            FBlockToSet.Background = new SolidColorBrush(FontColour);
+            return FBlockToSet;
         }
 
         internal Block FMXAML_TextAPI_SetBlockPosition(Block FBlockToSet, Color FontColour)
