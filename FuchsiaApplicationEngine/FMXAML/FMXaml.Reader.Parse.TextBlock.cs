@@ -47,6 +47,12 @@ namespace Fuchsia.InformationEngine
             return BoxToPopulate;
         }
 
+        /// <summary>
+        /// Internal API for parsing textblocks. (OVERLOAD)
+        /// </summary>
+        /// <param name="NodeToParse">The node to parse.</param>
+        /// <param name="BoxToPopulate">The richtextbox to populate. </param>
+        /// <returns></returns>
         internal Paragraph FMXAML_Parse_TextBlock(XmlNode NodeToParse, Paragraph ParaToPopulate)
         {
             XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
@@ -87,6 +93,20 @@ namespace Fuchsia.InformationEngine
                             TextToAdd = FMXAML_TextAPI_SetFontStyle(TextToAdd, "Oblique");
                         }
 
+                        continue;
+                    case "fontweight":
+                    case "FontWeight":
+
+                        try
+                        {
+                            int FFontWeight = Convert.ToInt32(FXmlAttribute.Value);
+
+                            TextToAdd = FMXAML_TextAPI_SetFontWeight(TextToAdd, FFontWeight);
+                        }
+                        catch (FormatException err)
+                        {
+                            FError.ThrowError(16, "Invalid font weight supplied", FErrorSeverity.FatalError, err);
+                        }
                         continue;
                 }
             }
