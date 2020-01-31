@@ -262,10 +262,36 @@ namespace Fuchsia.InformationEngine
             return FBlockToSet;
         }
 
-        internal Block FMXAML_TextAPI_SetBlockPosition(Block FBlockToSet, Color FontColour)
+        internal Block FMXAML_TextAPI_SetBlockPosition(Block FBlockToSet, Thickness FPosition)
         {
             throw new NotImplementedException();
         }
+
+        internal Color FMXAML_TextAPI_GetColourFromXMLValue(string Content)
+        {
+            byte[] FColours = Array.ConvertAll<string, byte>(Content.Split(','), Byte.Parse);
+
+
+            if (FColours.Length < 3 | FColours.Length > 4)
+            {
+                FError.ThrowError(19, "Invalid colour supplied - not all or too many values present", FErrorSeverity.FatalError);
+            }
+
+
+            Color FForegroundColour = new Color { R = FColours[0], G = FColours[1], B = FColours[2] };
+
+            if (FColours.Length > 3)
+            {
+                FForegroundColour.A = FColours[3];
+            }
+            else
+            {
+                FForegroundColour.A = 255; //otherwise stuff appears as invisible by default
+            }
+
+            return FForegroundColour; 
+        }
+
         //todo: more functions
     }
 }

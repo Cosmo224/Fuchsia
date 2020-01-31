@@ -132,31 +132,14 @@ namespace Fuchsia.InformationEngine
                             FError.ThrowError(16, "Invalid font weight supplied", FErrorSeverity.FatalError, err);
                         }
                         continue;
+                    case "foreground":
                     case "Foreground": // the foreground colour of the textblock
                     case "ForegroundColor":
                     case "ForegroundColour":
                         try
                         {
-                            byte[] FColours = Array.ConvertAll<string, byte>(FXmlAttribute.Value.Split(','), Byte.Parse);
-
-
-                            if (FColours.Length < 3 | FColours.Length > 4)
-                            {
-                                FError.ThrowError(19, "Invalid foreground colour supplied - not all or too many values present", FErrorSeverity.FatalError);
-                            }
-
-
-                            Color FForegroundColour = new Color { R = FColours[0], G = FColours[1], B = FColours[2] };
-
-                            if (FColours.Length > 3)
-                            {
-                                FForegroundColour.A = FColours[3];
-                            }
-                            else
-                            {
-                                FForegroundColour.A = 255; //otherwise stuff appears as invisible by default
-                            }
-
+                            Color FForegroundColour = FMXAML_TextAPI_GetColourFromXMLValue(FXmlAttribute.Value);
+                            
                             TextToAdd = FMXAML_TextAPI_SetFontFgColour(TextToAdd, FForegroundColour);
                         }
                         catch (FormatException err)
@@ -166,6 +149,25 @@ namespace Fuchsia.InformationEngine
                         catch (OverflowException err)
                         {
                             FError.ThrowError(21, "Invalid foreground colour supplied - every RGB(A) component must be between 0 and 255", FErrorSeverity.FatalError, err);
+                        }
+                        continue;
+                    case "background":
+                    case "Background":
+                    case "BackgroundColor":
+                    case "BackgroundColour":
+                        try
+                        {
+                            Color FBackgroundColour = FMXAML_TextAPI_GetColourFromXMLValue(FXmlAttribute.Value);
+
+                            TextToAdd = FMXAML_TextAPI_SetFontBgColour(TextToAdd, FBackgroundColour);
+                        }
+                        catch (FormatException err)
+                        {
+                            FError.ThrowError(22, "Invalid background colour supplied", FErrorSeverity.FatalError, err);
+                        }
+                        catch (OverflowException err)
+                        {
+                            FError.ThrowError(23, "Invalid background colour supplied - every RGB(A) component must be between 0 and 255", FErrorSeverity.FatalError, err);
                         }
                         continue;
                 }
