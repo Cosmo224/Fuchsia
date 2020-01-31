@@ -76,6 +76,17 @@ namespace Fuchsia.InformationEngine
                             FError.ThrowError(12, $"API call not implemented", FErrorSeverity.FatalError);
                         }
                         continue;
+                    case "fontfamily":
+                    case "FontFamily":
+                        try
+                        {
+                            TextToAdd = FMXAML_TextAPI_SetFontFamily(TextToAdd, FXmlAttribute.Value);
+                        }
+                        catch (ArgumentException err)
+                        {
+                            FError.ThrowError(18, "Invalid font size supplied", FErrorSeverity.FatalError, err);
+                        }
+                        continue;
                     case "fontstyle":
                     case "FontStyle":
                         string FXmlAttributeValue = FXmlAttribute.Value;
@@ -120,6 +131,7 @@ namespace Fuchsia.InformationEngine
                             FError.ThrowError(17, "Invalid font size supplied", FErrorSeverity.FatalError, err);
                         }
                         continue;
+
                 }
             }
 
