@@ -96,7 +96,6 @@ namespace Fuchsia.InformationEngine
                         continue;
                     case "fontweight":
                     case "FontWeight":
-
                         try
                         {
                             int FFontWeight = Convert.ToInt32(FXmlAttribute.Value);
@@ -106,6 +105,19 @@ namespace Fuchsia.InformationEngine
                         catch (FormatException err)
                         {
                             FError.ThrowError(16, "Invalid font weight supplied", FErrorSeverity.FatalError, err);
+                        }
+                        continue;
+                    case "fontsize":
+                    case "FontSize":
+                        try
+                        {
+                            double FFontSize = Convert.ToInt32(FXmlAttribute.Value);
+
+                            TextToAdd = FMXAML_TextAPI_SetFontSize(TextToAdd, FFontSize);
+                        }
+                        catch (FormatException err)
+                        {
+                            FError.ThrowError(17, "Invalid font size supplied", FErrorSeverity.FatalError, err);
                         }
                         continue;
                 }

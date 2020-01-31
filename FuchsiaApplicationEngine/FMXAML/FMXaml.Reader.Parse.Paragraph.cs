@@ -16,9 +16,8 @@ namespace Fuchsia.InformationEngine
         /// </summary>
         /// <param name="BoxToPopulate">The box to populate </param>
         /// <param name="FPageContentElement">The xmlnode to use to parse the subnodes of the Paragraph.</param>
-        /// <param name="ParagraphMode">DEPRECATED - DO NOT USE - ***WILL BE REMOVED!***</param>
         /// <returns></returns>
-        internal RichTextBox FMXAML_Parse_Paragraph(XmlNode FPageContentElement, RichTextBox BoxToPopulate, bool ParagraphMode = true) // Parses a paragraph.
+        internal RichTextBox FMXAML_Parse_Paragraph(XmlNode FPageContentElement, RichTextBox BoxToPopulate) // Parses a paragraph.
         {
             Paragraph TheParagraph = new Paragraph();
             XmlNodeList FParagraphChildren = FPageContentElement.ChildNodes;
@@ -29,22 +28,12 @@ namespace Fuchsia.InformationEngine
             {
                 if (FParagraphChild.Name == "#comment") continue;
 
-
-
                 MxamlNode MXamlChild_Parse = (MxamlNode)Enum.Parse(typeof(MxamlNode), FParagraphChild.Name);
 
                 switch (MXamlChild_Parse)
                 {
                     case MxamlNode.TextBlock:
-                        switch (ParagraphMode)
-                        {
-                            case false:
-                                BoxToPopulate = FMXAML_Parse_TextBlock(FParagraphChild, BoxToPopulate);
-                                continue;
-                            case true:
-                                TheParagraph = FMXAML_Parse_TextBlock(FParagraphChild, TheParagraph);
-                                continue; 
-                        }
+                        TheParagraph = FMXAML_Parse_TextBlock(FParagraphChild, TheParagraph);
                         continue;
                     default:
                         FError.ThrowError(14, "An invalid mXAML node was found.", FErrorSeverity.FatalError);

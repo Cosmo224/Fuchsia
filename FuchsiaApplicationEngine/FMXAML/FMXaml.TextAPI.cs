@@ -238,13 +238,25 @@ namespace Fuchsia.InformationEngine
             return FBlockToSet;
         }
 
-        internal Block FMXAML_TextAPI_SetFontFgColour(Block FBlockToSet, Color FontColour)
+        /// <summary>
+        /// Internal API for loading text. Sets the foreground colour of text.
+        /// </summary>
+        /// <param name="FBlockToSet">The Inline to set the foreground colour of.</param>
+        /// <param name="FontColour">The Inline to set the foreground colour of.</param>
+        /// <returns>An Inline with the foreground colour set</returns>
+        internal Inline FMXAML_TextAPI_SetFontFgColour(Inline FBlockToSet, Color FontColour)
         {
             FBlockToSet.Foreground = new SolidColorBrush(FontColour);
             return FBlockToSet;
         }
 
-        internal Block FMXAML_TextAPI_SetFontBgColour(Block FBlockToSet, Color FontColour)
+        /// <summary>
+        /// Internal API for loading text. Sets the foreground colour of text.
+        /// </summary>
+        /// <param name="FBlockToSet">The Inline to set the background colour of.</param>
+        /// <param name="FontColour">The Inline to set the background colour of.</param>
+        /// <returns>An Inline with the background colour set</returns>
+        internal Inline FMXAML_TextAPI_SetFontBgColour(Inline FBlockToSet, Color FontColour)
         {
             FBlockToSet.Background = new SolidColorBrush(FontColour);
             return FBlockToSet;
