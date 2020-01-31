@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Fuchsia.InformationEngine
 {
@@ -51,9 +52,9 @@ namespace Fuchsia.InformationEngine
         /// Internal API for parsing textblocks. (OVERLOAD)
         /// </summary>
         /// <param name="NodeToParse">The node to parse.</param>
-        /// <param name="BoxToPopulate">The richtextbox to populate. </param>
+        /// <param name="ParaToPopulate">The paragraph to populate. </param>
         /// <returns></returns>
-        internal Paragraph FMXAML_Parse_TextBlock(XmlNode NodeToParse, Paragraph ParaToPopulate)
+        internal Paragraph FMXAML_Parse_TextBlock(XmlNode NodeToParse, Paragraph ParaToPopulate) // maybe we need to split the code for this up into various fmxamlreader stuff
         {
             XmlAttributeCollection FXmlNodeAttributes = NodeToParse.Attributes; // should be verified by now.
 
@@ -62,9 +63,9 @@ namespace Fuchsia.InformationEngine
             foreach (XmlAttribute FXmlAttribute in FXmlNodeAttributes)
             {
 
-                switch (FXmlAttribute.Name) // TEMP, Pre-Factory Class code.
+                switch (FXmlAttribute.Name) // TODO: FACTORY CLASS? AND ENUM.
                 {
-                    case "content":
+                    case "content": // the content of the textblock
                     case "Content":
                         try
                         {  //TEMPCODE
@@ -76,7 +77,7 @@ namespace Fuchsia.InformationEngine
                             FError.ThrowError(12, $"API call not implemented", FErrorSeverity.FatalError);
                         }
                         continue;
-                    case "fontfamily":
+                    case "fontfamily": // the font family of the textblock
                     case "FontFamily":
                         try
                         {
@@ -87,7 +88,7 @@ namespace Fuchsia.InformationEngine
                             FError.ThrowError(18, "Invalid font size supplied", FErrorSeverity.FatalError, err);
                         }
                         continue;
-                    case "fontstyle":
+                    case "fontstyle": // the font family of the textblock
                     case "FontStyle":
                         string FXmlAttributeValue = FXmlAttribute.Value;
 
@@ -105,20 +106,7 @@ namespace Fuchsia.InformationEngine
                         }
 
                         continue;
-                    case "fontweight":
-                    case "FontWeight":
-                        try
-                        {
-                            int FFontWeight = Convert.ToInt32(FXmlAttribute.Value);
-
-                            TextToAdd = FMXAML_TextAPI_SetFontWeight(TextToAdd, FFontWeight);
-                        }
-                        catch (FormatException err)
-                        {
-                            FError.ThrowError(16, "Invalid font weight supplied", FErrorSeverity.FatalError, err);
-                        }
-                        continue;
-                    case "fontsize":
+                    case "fontsize": // the font size of the textblock
                     case "FontSize":
                         try
                         {
@@ -131,7 +119,55 @@ namespace Fuchsia.InformationEngine
                             FError.ThrowError(17, "Invalid font size supplied", FErrorSeverity.FatalError, err);
                         }
                         continue;
+                    case "fontweight": // the font weight of the textblock
+                    case "FontWeight":
+                        try
+                        {
+                            int FFontWeight = Convert.ToInt32(FXmlAttribute.Value);
 
+                            TextToAdd = FMXAML_TextAPI_SetFontWeight(TextToAdd, FFontWeight);
+                        }
+                        catch (FormatException err)
+                        {
+                            FError.ThrowError(16, "Invalid font weight supplied", FErrorSeverity.FatalError, err);
+                        }
+                        continue;
+                    case "Foreground": // the foreground colour of the textblock
+                    case "ForegroundColor":
+                    case "ForegroundColour":
+                        try
+                        {
+                            byte[] FColours = Array.ConvertAll<string, byte>(FXmlAttribute.Value.Split(','), Byte.Parse);
+
+
+                            if (FColours.Length < 3 | FColours.Length > 4)
+                            {
+                                FError.ThrowError(19, "Invalid foreground colour supplied - not all or too many values present", FErrorSeverity.FatalError);
+                            }
+
+
+                            Color FForegroundColour = new Color { R = FColours[0], G = FColours[1], B = FColours[2] };
+
+                            if (FColours.Length > 3)
+                            {
+                                FForegroundColour.A = FColours[3];
+                            }
+                            else
+                            {
+                                FForegroundColour.A = 255; //otherwise stuff appears as invisible by default
+                            }
+
+                            TextToAdd = FMXAML_TextAPI_SetFontFgColour(TextToAdd, FForegroundColour);
+                        }
+                        catch (FormatException err)
+                        {
+                            FError.ThrowError(20, "Invalid foreground colour supplied", FErrorSeverity.FatalError, err);
+                        }
+                        catch (OverflowException err)
+                        {
+                            FError.ThrowError(21, "Invalid foreground colour supplied - every RGB(A) component must be between 0 and 255", FErrorSeverity.FatalError, err);
+                        }
+                        continue;
                 }
             }
 
