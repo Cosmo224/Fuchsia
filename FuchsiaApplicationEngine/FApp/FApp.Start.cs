@@ -208,15 +208,25 @@ namespace Fuchsia.InformationEngine
         {
 
             IFDocument FDocument_Loading = new FDocument();
+
+            XmlNode FXmlRootNode = FXmlDocumentToParse.FirstChild;
+
+            while (FXmlRootNode.Name == "#comment")
+            {
+                FXmlRootNode = FXmlRootNode.NextSibling;
+            }
+
             if (!FStartApp_VerifyChildNodes(FXmlDocumentToParse))
             {
                 return null;
             }
             else
             {
-                foreach (XmlNode FXmlDocumentDefinitionNode in FXmlDocumentToParse)
+                foreach (XmlNode FXmlDocumentDefinitionNode in FXmlDocumentToParse.FirstChild)
                 {
-                    if (!FStartApp_VerifyAttributes(FXmlDocumentToParse))
+                    if (FXmlDocumentDefinitionNode.Name == "#comment") continue;
+
+                    if (!FStartApp_VerifyAttributes(FXmlDocumentDefinitionNode))
                     {
                         return null;
                     }
@@ -291,11 +301,11 @@ namespace Fuchsia.InformationEngine
             }
         }
 
-        internal bool FStartApp_VerifyAttributes(XmlDocument DocumentToVerify)
+        internal bool FStartApp_VerifyAttributes(XmlNode NodeToVerify)
         {
-            if (DocumentToVerify.FirstChild.Attributes.Count == 0)
+            if (NodeToVerify.Attributes.Count == 0)
             {
-                FError.ThrowError(11, $"The node {DocumentToVerify.FirstChild.Name} must have attributes.", FErrorSeverity.FatalError);
+                FError.ThrowError(11, $"The node {NodeToVerify.Name} must have attributes.", FErrorSeverity.FatalError);
                 return false;
             }
             else
