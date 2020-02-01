@@ -31,7 +31,7 @@ namespace Fuchsia.InformationEngine
                 FApp.AppPage.Load(_burn);
                 FApp.AppPath = PathToApp;
                 FApp = FStartApp_ParseAppXml(FApp, FApp.AppPage);
-
+                FApp.Documents = FStartApp_LoadDocuments(FApp);
                 FApp.TitlePage = FStartApp_LoadTitlePage(FApp);
 
                 return FApp;
@@ -329,7 +329,11 @@ namespace Fuchsia.InformationEngine
         /// <returns>true if the verification was successful, throws error 24 and returns false otherwise.</returns>
         internal bool FStartApp_VerifyChildNodes(XmlDocument DocumentToVerify)//public variant too
         {
-            if (!DocumentToVerify.FirstChild.HasChildNodes)
+            XmlNode FFirstChildToVerify = DocumentToVerify.FirstChild;
+
+            if (FFirstChildToVerify.Name == "#comment") FFirstChildToVerify = DocumentToVerify.NextSibling; 
+
+            if (!FFirstChildToVerify.HasChildNodes)
             {
                 FError.ThrowError(24, $"The node {DocumentToVerify.FirstChild.Name} in an XmlDocument must have child nodes.", FErrorSeverity.Error);
                 return false;
