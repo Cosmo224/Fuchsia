@@ -331,11 +331,14 @@ namespace Fuchsia.InformationEngine
         {
             XmlNode FFirstChildToVerify = DocumentToVerify.FirstChild;
 
-            if (FFirstChildToVerify.Name == "#comment") FFirstChildToVerify = DocumentToVerify.NextSibling; 
+            while (FFirstChildToVerify.Name == "#comment")
+            {
+                FFirstChildToVerify = DocumentToVerify.NextSibling;
+            }
 
             if (!FFirstChildToVerify.HasChildNodes)
             {
-                FError.ThrowError(24, $"The node {DocumentToVerify.FirstChild.Name} in an XmlDocument must have child nodes.", FErrorSeverity.Error);
+                FError.ThrowError(24, $"The node {FFirstChildToVerify.Name} in an XmlDocument must have child nodes.", FErrorSeverity.Error);
                 return false;
             }
             else
