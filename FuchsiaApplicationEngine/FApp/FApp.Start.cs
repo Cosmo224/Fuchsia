@@ -182,7 +182,7 @@ namespace Fuchsia.InformationEngine
         /// <returns></returns>
         internal List<IFDocument> FStartApp_LoadDocuments(IFApp AppToLoadDocumentsOf)
         {
-            List<IFDocument> FDocumentList = new List<IFDocument>();
+            List<IFDocument> FDocumentList = AppToLoadDocumentsOf.Documents;
 
             XmlDocument FDocumentDefinitionsXML = FStartApp_LoadDocumentDefinitionsXML(AppToLoadDocumentsOf);
 
