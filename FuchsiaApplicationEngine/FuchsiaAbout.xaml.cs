@@ -30,7 +30,7 @@ namespace Fuchsia.InformationEngine
 
         internal void FAboutInit()
         {
-            FuchsiaVersionInformation.Text = $"Version {FVersion.Version.Major}.{FVersion.Version.Minor} (build {FVersion.Version.Build}.{FVersion.Version.Revision})";
+            FuchsiaVersionInformation.Text = $"Version {FVersion.Version.Major}.{FVersion.Version.Minor} (build {FVersion.Version.Build}.{FVersion.Version.Revision}; {FVersion.Status})";
             FuchsiaVersionInformation_BuildDate.Text = $"Build date: {FVersion.BuildTime.ToString()}";
             FuchsiaVersionInformation_Status.Text = $"Status: {FVersion.Status}";
             FuchsiaVersionInformation_Debug.Text = $"Debug mode: {FVersion.DebugStatus.ToString()}";
