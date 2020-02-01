@@ -185,6 +185,9 @@ namespace Fuchsia.InformationEngine
             List<IFDocument> FDocumentList = new List<IFDocument>();
 
             XmlDocument FDocumentDefinitionsXML = FStartApp_LoadDocumentDefinitionsXML(AppToLoadDocumentsOf);
+
+            FDocumentList = FStartApp_ParseDocumentDefinitionsXML(FDocumentDefinitionsXML, FDocumentList);
+
             return FDocumentList;
         }
         
@@ -226,16 +229,18 @@ namespace Fuchsia.InformationEngine
                             switch (FXmlAttribute.Name)
                             {
                                 case "title":
-                                case "Title":
+                                case "Title": //document title
                                     FDocument_Loading.DocumentTitle = FXmlAttribute.Value;
                                     continue;
                                 case "path":
-                                case "Path":
+                                case "Path": //document path
                                     FDocument_Loading.DocumentName = FXmlAttribute.Value;
                                     continue;
                             }
                         }
                     }
+
+                    DocumentList.Add(FDocument_Loading);
 
                 }
             }
