@@ -87,7 +87,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FTextBox\" />
+    <Folder Include="FuchsiaUX\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

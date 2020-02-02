@@ -8,19 +8,20 @@ namespace Fuchsia.InformationEngine
 {
     public partial class FInfoEngine
     {
-        public void LoadDocument(IFDocument DocumentToLoad)
+        public void FLoadDocument(IFDocument DocumentToLoad)
         {
             DocumentToLoad.DocumentXML = FLoadXml(DocumentToLoad.DocumentPath);
-            FParseDocument(DocumentToLoad);
+            DocumentToLoad.DocumentRTB = FParseDocument(DocumentToLoad);
+            FuchsiaHome FuchsiaHome = new FuchsiaHome(DocumentToLoad.DocumentRTB); //tempcode.
+            FuchsiaHome.Show();
         }
-        public void LoadDocumentByName(IFApp AppToSearchForDocumentIn, string DocumentName)
+        public void FLoadDocumentByName(IFApp AppToSearchForDocumentIn, string DocumentName)
         {
             foreach (IFDocument FDocumentToSearch in AppToSearchForDocumentIn.Documents)
             {
                 if (FDocumentToSearch.DocumentName == DocumentName)
                 {
-                    
-                    LoadDocument(FDocumentToSearch);
+                    FLoadDocument(FDocumentToSearch);
                 }
             }
         }
