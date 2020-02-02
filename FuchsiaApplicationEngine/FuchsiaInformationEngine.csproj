@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="FApp\FApp.cs" />
     <Compile Include="FApp\FApp.Start.cs" />
+    <Compile Include="FDocument\FDocument.API.cs" />
     <Compile Include="FDocument\FDocument.cs" />
     <Compile Include="FDocument\FDocument.Parse.cs" />
     <Compile Include="FDocument\IFApp.cs" />
