@@ -31,7 +31,8 @@ namespace Fuchsia.InformationEngine
                 FApp.AppPage.Load(_burn);
                 FApp.AppPath = PathToApp;
                 FApp = FStartApp_ParseAppXml(FApp, FApp.AppPage);
-                FApp.Documents = FStartApp_LoadDocuments(FApp);
+                FApp.Documents = new List<IFDocument>();
+                FApp.Documents = FStartApp_LoadDocuments(FApp, FApp.Documents);
                 FApp.TitlePage = FStartApp_LoadTitlePage(FApp);
 
                 return FApp;
@@ -180,9 +181,9 @@ namespace Fuchsia.InformationEngine
         /// </summary>
         /// <param name="AppToLoadDocumentsOf">The App to load the Document of.</param>
         /// <returns></returns>
-        internal List<IFDocument> FStartApp_LoadDocuments(IFApp AppToLoadDocumentsOf)
+        internal List<IFDocument> FStartApp_LoadDocuments(IFApp AppToLoadDocumentsOf, List<IFDocument> FDocument)
         {
-            List<IFDocument> FDocumentList = AppToLoadDocumentsOf.Documents;
+            List<IFDocument> FDocumentList = FDocument;
 
             XmlDocument FDocumentDefinitionsXML = FStartApp_LoadDocumentDefinitionsXML(AppToLoadDocumentsOf);
 
@@ -222,9 +223,9 @@ namespace Fuchsia.InformationEngine
             }
             else
             {
-                foreach (XmlNode FXmlDocumentDefinitionNode in FXmlDocumentToParse.FirstChild)
+
+                foreach (XmlNode FXmlDocumentDefinitionNode in FXmlRootNode.ChildNodes)
                 {
-                    if (FXmlDocumentDefinitionNode.Name == "#comment") continue;
 
                     if (!FStartApp_VerifyAttributes(FXmlDocumentDefinitionNode))
                     {
@@ -248,10 +249,8 @@ namespace Fuchsia.InformationEngine
                                     continue;
                             }
                         }
+                        DocumentList.Add(FDocument_Loading);
                     }
-
-                    DocumentList.Add(FDocument_Loading);
-
                 }
             }
 
