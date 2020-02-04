@@ -267,6 +267,11 @@ namespace Fuchsia.InformationEngine
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets colour from a string. 
+        /// </summary>
+        /// <param name="Content">The string to determine an RGB(A) colour.</param>
+        /// <returns>An RGBA colour.</returns>
         internal Color FMXAML_TextAPI_GetColourFromXMLValue(string Content)
         {
             byte[] FColours = Array.ConvertAll<string, byte>(Content.Split(','), Byte.Parse);
@@ -290,6 +295,12 @@ namespace Fuchsia.InformationEngine
             }
 
             return FForegroundColour; 
+        }
+
+        public Inline FMXAML_TextAPI_AddInlineUI(Paragraph FParaToAdd)
+        {
+            InlineUIContainer IUIContainer = new InlineUIContainer();
+            FParaToAdd.Inlines.Add(IUIContainer);
         }
 
         //todo: more functions

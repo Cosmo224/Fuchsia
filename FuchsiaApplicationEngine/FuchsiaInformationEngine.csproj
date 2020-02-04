@@ -58,6 +58,7 @@
     <Compile Include="FDocument\IFDocument.cs" />
     <Compile Include="FIECore.cs" />
     <Compile Include="FMXAML\FMXaml.Reader.Main.cs" />
+    <Compile Include="FMXAML\FMXaml.Reader.Parse.Doclink.cs" />
     <Compile Include="FMXAML\FMXaml.Reader.Parse.Paragraph.cs" />
     <Compile Include="FMXAML\FMXaml.Reader.Parse.TextBlock.cs" />
     <Compile Include="FMXAML\FMXaml.TextAPI.cs" />
