@@ -26,5 +26,10 @@ namespace Fuchsia.InformationEngine.FuchsiaUX
         {
             InitializeComponent();
         }
+
+        private void FuchsiaUXInternal_FUXDoclink_FUXDoclinkText_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //handle click
+        }
     }
 }
