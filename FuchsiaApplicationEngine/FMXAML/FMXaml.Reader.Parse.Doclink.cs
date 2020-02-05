@@ -12,21 +12,28 @@ namespace Fuchsia.InformationEngine
 {
     public partial class FMXamlReader
     {
-        internal RichTextBox FMXAML_Parse_Doclink(XmlNode FPageContentElement, RichTextBox BoxToPopulate)
+        internal Paragraph FMXAML_Parse_Doclink(XmlNode FPageContentElement, Paragraph FParagraphToPopulate)
         {
-            Inline FInline = new Run(); 
+            FUXDoclink FUXDoc = new FUXDoclink();
             XmlAttributeCollection FContentElementAttributes = FPageContentElement.Attributes;
+
+
 
             foreach (XmlAttribute FContentElementAttribute in FContentElementAttributes)
             {
                 switch (FContentElementAttribute.Name)
                 {
-                    case "destination":
-
-
+                    case "Content": //TEMP
+                        FUXDoc = FMXAML_TextAPI_AddDoclink(FParagraphToPopulate, FContentElementAttribute.Value);
+                        continue;
+                    case "Destination":
+                        FUXDoc.Destination = FContentElementAttribute.Value; //Destinations
                         continue;
                 }
             }
+
+            FParagraphToPopulate = FMXAML_TextAPI_AddDoclinkToParagraph(FParagraphToPopulate, FUXDoc);
+            return FParagraphToPopulate;
         }
     }
 }

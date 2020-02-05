@@ -35,6 +35,9 @@ namespace Fuchsia.InformationEngine
                     case MxamlNode.TextBlock:
                         TheParagraph = FMXAML_Parse_TextBlock(FParagraphChild, TheParagraph);
                         continue;
+                    case MxamlNode.Doclink:
+                        TheParagraph = FMXAML_Parse_Doclink(FParagraphChild, TheParagraph);
+                        continue;
                     default:
                         FError.ThrowError(14, "An invalid mXAML node was found.", FErrorSeverity.FatalError);
                         continue; 

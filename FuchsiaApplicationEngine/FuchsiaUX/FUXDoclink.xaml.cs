@@ -20,6 +20,7 @@ namespace Fuchsia.InformationEngine.FuchsiaUX
     /// </summary>
     public partial class FUXDoclink : UserControl
     {
+        public string Destination { get; set; }
         public string DocLinkContent { get => FuchsiaUXInternal_FUXDoclink_FUXDoclinkText.Text; set => FuchsiaUXInternal_FUXDoclink_FUXDoclinkText.Text = value; }
         public FUXDoclink()
         {

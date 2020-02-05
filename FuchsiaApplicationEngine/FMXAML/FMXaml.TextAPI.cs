@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fuchsia.InformationEngine.FuchsiaUX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -223,6 +224,12 @@ namespace Fuchsia.InformationEngine
             return FBlockToSet;
         }
 
+        /// <summary>
+        /// Internal API for loading text. Sets a text block's font weight. (INLINE OVERLOAD)
+        /// </summary>
+        /// <param name="FBlockToSet">The Block to set the font weight of.</param>
+        /// <param name="FontWght">The font family in string form to set the Block's font weight to.</param>
+        /// <returns>A Block with the font weight set.</returns>
         internal Inline FMXAML_TextAPI_SetFontWeight(Inline FBlockToSet, int FontWght) // Sets the font weight.
         {
 
@@ -297,10 +304,20 @@ namespace Fuchsia.InformationEngine
             return FForegroundColour; 
         }
 
-        public Inline FMXAML_TextAPI_AddInlineUI(Paragraph FParaToAdd)
+        public FUXDoclink FMXAML_TextAPI_AddDoclink(Paragraph FParaToAdd, string FSetContent) // Adds a paragraph.
         {
-            InlineUIContainer IUIContainer = new InlineUIContainer();
-            FParaToAdd.Inlines.Add(IUIContainer);
+            FUXDoclink FUXDoclink = new FUXDoclink();
+            FUXDoclink.DocLinkContent = FSetContent;
+            return FUXDoclink;
+        }
+
+        public Paragraph FMXAML_TextAPI_AddDoclinkToParagraph(Paragraph FParaToModify, FUXDoclink FDoclinkToAdd)
+        {
+            InlineUIContainer FInlineUIContainer = new InlineUIContainer();
+            FDoclinkToAdd.Height = 35;
+            FInlineUIContainer.Child = FDoclinkToAdd;
+            FParaToModify.Inlines.Add(FInlineUIContainer);
+            return FParaToModify;
         }
 
         //todo: more functions

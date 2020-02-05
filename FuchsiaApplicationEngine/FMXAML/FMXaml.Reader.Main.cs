@@ -38,8 +38,6 @@ namespace Fuchsia.InformationEngine
                         case MxamlNode.TextBlock:
                             BoxToPopulate = FMXAML_Parse_TextBlock(FPageContentElement, BoxToPopulate);
                             continue;
-                        case MxamlNode.Doclink:
-                            //BoxToPopulate
 
                     }
 
