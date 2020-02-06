@@ -44,6 +44,36 @@ namespace Fuchsia.InformationEngine
             }
         }
 
+        public IFApp FStartApp(string PathToApp) // "Compiled FApps" coming soon.
+        {
+            try
+            {
+                IFApp FApp = new FApp();
+
+                FApp.AppPage = new XmlDocument();
+                string _burn = $"{PathToApp}\\App.xml";
+
+                if (_burn.Contains(':'))
+                {
+                    _burn.Remove(':');
+                }
+
+                FApp.AppPage.Load(_burn);
+                FApp.AppPath = PathToApp;
+                FApp = FStartApp_ParseAppXml(FApp, FApp.AppPage);
+                FApp.Documents = new List<IFDocument>();
+                FApp.Documents = FStartApp_LoadDocuments(FApp, FApp.Documents);
+                FApp.TitlePage = FStartApp_LoadTitlePage(FApp);
+
+                return FApp;
+            }
+            catch (XmlException err)
+            {
+                FError.ThrowError(0, $"An error has occurred loading the app definition page located at {PathToApp}. Aborting load...", FErrorSeverity.Error, err);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Internal API for loading XML.
         /// </summary>

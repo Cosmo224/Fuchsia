@@ -1,4 +1,5 @@
-﻿using Fuchsia.InformationEngine; 
+﻿using Fuchsia.InformationEngine;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -53,6 +55,21 @@ namespace Fuchsia
                         return;
                 }
             }
+        }
+
+        private void FuchsiaMenu_LoadApp_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog FFD = new FolderBrowserDialog();
+            FFD.ShowNewFolderButton = false;
+            FFD.ShowDialog();
+
+            if (FFD.SelectedPath != null)
+            {
+                // open up
+                InformationEngine.FStartApp(FFD.SelectedPath);
+                return;
+            }
+
         }
     }
 }
