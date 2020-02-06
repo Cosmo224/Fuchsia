@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Fuchsia.InformationEngine
 {
@@ -18,7 +19,10 @@ namespace Fuchsia.InformationEngine
         /// <returns></returns>
         internal RichTextBox FMXAML_Parse_Paragraph(XmlNode FPageContentElement, RichTextBox BoxToPopulate) // Parses a paragraph.
         {
+            Paragraph TheParagraph = new Paragraph();
             XmlNodeList FParagraphChildren = FPageContentElement.ChildNodes;
+
+            TheParagraph = FMXAML_TextAPI_CreateParagraph();
 
             foreach (XmlNode FParagraphChild in FParagraphChildren)
             {
@@ -29,13 +33,24 @@ namespace Fuchsia.InformationEngine
                 switch (MXamlChild_Parse)
                 {
                     case MxamlNode.TextBlock:
-                        BoxToPopulate = FMXAML_Parse_TextBlock(FParagraphChild, BoxToPopulate);
+                        TheParagraph = FMXAML_Parse_TextBlock(FParagraphChild, TheParagraph);
+                        continue;
+                    case MxamlNode.Doclink:
+                        TheParagraph = FMXAML_Parse_Doclink(FParagraphChild, TheParagraph);
                         continue;
                     default:
                         FError.ThrowError(14, "An invalid mXAML node was found.", FErrorSeverity.FatalError);
                         continue; 
                 }
+
+                
             }
+
+            if (TheParagraph.Inlines.Count > 0)
+            {
+                BoxToPopulate = FMXAML_TextAPI_AddParagraphToTextBox(BoxToPopulate, TheParagraph);
+            }
+
             return BoxToPopulate;
         }
     }

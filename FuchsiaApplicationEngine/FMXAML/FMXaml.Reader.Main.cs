@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Windows.Controls; 
+using System.Windows.Controls;
+using Fuchsia.InformationEngine.FuchsiaUX;
 
 namespace Fuchsia.InformationEngine
 {
-    internal enum MxamlNode { Paragraph, TextBlock }
+    internal enum MxamlNode { Paragraph, TextBlock, Rectangle, Doclink }
     public partial class FMXamlReader
     {
 

@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Fuchsia.InformationEngine.FuchsiaUX.FUXDoclink"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fuchsia.InformationEngine.FuchsiaUX"
+             mc:Ignorable="d" Height="33.896" Width="428.311">
+    <Grid>
+        <TextBlock x:Name="FuchsiaUXInternal_FUXDoclink_FUXDoclinkText" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="15" Width="400" Foreground="#FF4E93E6" FontStyle="Italic" TextDecorations="Underline" PreviewMouseDown="FuchsiaUXInternal_FUXDoclink_FUXDoclinkText_PreviewMouseDown"/>
+
+    </Grid>
+</UserControl>

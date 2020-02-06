@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              Height="450" Width="800" Title="{Binding DocumentTitle}" WindowStyle="None" FontSize="18" KeyDown="Window_KeyDown">
     <Grid x:Name="FuchsiaHomeCore">
-        <Button x:Name="FuchsiaExit__Temporary" Content="Exit (temporary)" HorizontalAlignment="Left" Margin="647,10,0,0" VerticalAlignment="Top" Width="135" FontSize="18" Click="FuchsiaExit__Temporary_Click"/>
+        <Button x:Name="FuchsiaExit__Temporary" Content="exit (temporary)" HorizontalAlignment="Left" Margin="647,10,0,0" VerticalAlignment="Top" Width="135" FontSize="18" Foreground="White" BorderBrush="#FFDCFF00" Height="30" Click="FuchsiaExit__Temporary_Click" Background="#51000000"/>
     </Grid>
 </Window>

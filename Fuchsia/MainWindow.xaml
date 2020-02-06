@@ -6,11 +6,18 @@
         xmlns:local="clr-namespace:Fuchsia"
         mc:Ignorable="d"
         Title="Fuchsia" Height="450" Width="800">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#FFFF0DFF" Offset="0.0"/>
+            <GradientStop Color="#FFF250F5" Offset="0.33"/>
+            <GradientStop Color="#FFFF75FF" Offset="0.66"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
-        <TextBlock x:Name="FuchsiaWelcome" HorizontalAlignment="Left" Margin="233,90,0,0" TextWrapping="Wrap" Text="welcome" VerticalAlignment="Top" Height="94" Width="303" FontSize="72" Foreground="Fuchsia"/>
-        <TextBlock x:Name="FuchsiaWelcomeAltlang" HorizontalAlignment="Left" Margin="315,165,0,0" TextWrapping="Wrap" Text="bienvenue | wilkommen | benvenuto" VerticalAlignment="Top" Height="19" Width="341" FontSize="18" Foreground="Fuchsia"/>
-        <TextBlock x:Name="FuchsiaInformationEngine" HorizontalAlignment="Left" Margin="233,250,0,0" TextWrapping="Wrap" Text="fuchsia information engine" VerticalAlignment="Top" Height="41" Width="331" FontSize="26" Foreground="Fuchsia"/>
-        <TextBlock x:Name="FuchsiaInformationEngineUnderConstruction" HorizontalAlignment="Left" Margin="233,275,0,0" TextWrapping="Wrap" Text="under construction" VerticalAlignment="Top" Height="41" Width="331" FontSize="18" Foreground="Fuchsia"/>
+        <TextBlock x:Name="FuchsiaWelcome" HorizontalAlignment="Left" Margin="233,90,0,0" TextWrapping="Wrap" Text="welcome" VerticalAlignment="Top" Height="94" Width="303" FontSize="72" Foreground="White"/>
+        <TextBlock x:Name="FuchsiaWelcomeAltlang" HorizontalAlignment="Left" Margin="315,165,0,0" TextWrapping="Wrap" Text="bienvenue | wilkommen | benvenuto" VerticalAlignment="Top" Height="33" Width="341" FontSize="18" Foreground="White"/>
+        <TextBlock x:Name="FuchsiaInformationEngine" HorizontalAlignment="Left" Margin="233,250,0,0" TextWrapping="Wrap" Text="fuchsia information engine" VerticalAlignment="Top" Height="41" Width="331" FontSize="26" Foreground="White"/>
+        <TextBlock x:Name="FuchsiaInformationEngineUnderConstruction" HorizontalAlignment="Left" Margin="233,275,0,0" TextWrapping="Wrap" Text="under construction" VerticalAlignment="Top" Height="41" Width="331" FontSize="18" Foreground="White"/>
 
     </Grid>
 </Window>

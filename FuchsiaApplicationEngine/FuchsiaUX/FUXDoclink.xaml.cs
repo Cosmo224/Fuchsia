@@ -1,5 +1,4 @@
-﻿using Fuchsia.InformationEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,13 +29,7 @@ namespace Fuchsia.InformationEngine.FuchsiaUX
 
         private void FuchsiaUXInternal_FUXDoclink_FUXDoclinkText_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //handle click 
-            //TEMP?
-            FInfoEngine FIE = new FInfoEngine();
-
-            IFDocument FDocumentToLoad = new FDocument();
-            FDocumentToLoad.DocumentPath = this.Destination;
-            FIE.FLoadDocument(FDocumentToLoad);
+            //handle click
         }
     }
 }

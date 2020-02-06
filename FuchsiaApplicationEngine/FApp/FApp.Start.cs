@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -29,7 +31,8 @@ namespace Fuchsia.InformationEngine
                 FApp.AppPage.Load(_burn);
                 FApp.AppPath = PathToApp;
                 FApp = FStartApp_ParseAppXml(FApp, FApp.AppPage);
-
+                FApp.Documents = new List<IFDocument>();
+                FApp.Documents = FStartApp_LoadDocuments(FApp, FApp.Documents);
                 FApp.TitlePage = FStartApp_LoadTitlePage(FApp);
 
                 return FApp;
@@ -44,7 +47,7 @@ namespace Fuchsia.InformationEngine
         /// <summary>
         /// Internal API for loading XML.
         /// </summary>
-        /// <param name="path">The path to the XML file.</param>
+        /// <param name="Path">The path to the XML file.</param>
         /// <returns></returns>
         internal XmlDocument FLoadXml(string Path)
         {
@@ -174,14 +177,96 @@ namespace Fuchsia.InformationEngine
         }
 
         /// <summary>
+        /// Internal API for loading document lists. Loads the list of documents for a particular IFApp.
+        /// </summary>
+        /// <param name="AppToLoadDocumentsOf">The App to load the Document of.</param>
+        /// <returns></returns>
+        internal List<IFDocument> FStartApp_LoadDocuments(IFApp AppToLoadDocumentsOf, List<IFDocument> FDocument)
+        {
+            List<IFDocument> FDocumentList = FDocument;
+
+            XmlDocument FDocumentDefinitionsXML = FStartApp_LoadDocumentDefinitionsXML(AppToLoadDocumentsOf);
+
+            FDocumentList = FStartApp_ParseDocumentDefinitionsXML(FDocumentDefinitionsXML, FDocumentList);
+
+            return FDocumentList;
+        }
+        
+        /// <summary>
+        /// Internal API for loading document lists. Loads the document definition XML for the IFApp
+        /// </summary>
+        /// <param name="AppToLoadDocumentDefinitionsOf">The App to load the document of.</param>
+        /// <returns></returns>
+        internal XmlDocument FStartApp_LoadDocumentDefinitionsXML(IFApp AppToLoadDocumentDefinitionsOf) // loads the document definition xml.
+        {
+            XmlDocument FXMLDocument = new XmlDocument();
+            FXMLDocument.Load($"{AppToLoadDocumentDefinitionsOf.AppPath}\\{AppToLoadDocumentDefinitionsOf.AppName}\\DocumentDefinitions.xml");
+
+            return FXMLDocument; 
+        }
+
+        internal List<IFDocument> FStartApp_ParseDocumentDefinitionsXML(XmlDocument FXmlDocumentToParse, List<IFDocument> DocumentList) // parse.
+        {
+
+            IFDocument FDocument_Loading = new FDocument();
+
+            XmlNode FXmlRootNode = FXmlDocumentToParse.FirstChild;
+
+            while (FXmlRootNode.Name == "#comment")
+            {
+                FXmlRootNode = FXmlRootNode.NextSibling;
+            }
+
+            if (!FStartApp_VerifyChildNodes(FXmlDocumentToParse))
+            {
+                return null;
+            }
+            else
+            {
+
+                foreach (XmlNode FXmlDocumentDefinitionNode in FXmlRootNode.ChildNodes)
+                {
+
+                    if (!FStartApp_VerifyAttributes(FXmlDocumentDefinitionNode))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        XmlAttributeCollection FXmlAttributes = FXmlDocumentDefinitionNode.Attributes; // get the attributes of the <Fuchsia> node. 
+
+                        foreach (XmlAttribute FXmlAttribute in FXmlAttributes)
+                        {
+                            switch (FXmlAttribute.Name)
+                            {
+                                case "title":
+                                case "Title": //document title
+                                    FDocument_Loading.DocumentTitle = FXmlAttribute.Value;
+                                    continue;
+                                case "path":
+                                case "Path": //document path
+                                    FDocument_Loading.DocumentName = FXmlAttribute.Value;
+                                    continue;
+                            }
+                        }
+                        DocumentList.Add(FDocument_Loading);
+                    }
+                }
+            }
+
+            return DocumentList;
+        }
+
+        /// <summary>
         /// Internal API for loading title pages of Apps.
         /// </summary>
-        /// <param name="AppToLoadTitlePageOf">The </param>
+        /// <param name="AppToLoadTitlePageOf">The app to load the title page of.</param>
         /// <returns>An FDocumentTitlePage containing the loaded app title page.</returns>
         internal FDocumentTitlePage FStartApp_LoadTitlePage(IFApp AppToLoadTitlePageOf)
         {
             FDocumentTitlePage FDocumentTitlePage = new FDocumentTitlePage();
             FDocumentTitlePage.DocumentXML = FLoadXml($"{AppToLoadTitlePageOf.AppPath}\\{AppToLoadTitlePageOf.AppName}\\Title.xml", "Fuchsia");
+
             if (!FStartApp_VerifyAttributes(FDocumentTitlePage))
             {
                 return null;
@@ -206,7 +291,20 @@ namespace Fuchsia.InformationEngine
         {
             if (DocumentToVerify.DocumentXML.FirstChild.Attributes.Count == 0)
             {
-                FError.ThrowError(11, $"The node {DocumentToVerify.DocumentXML.FirstChild.Name} in document {DocumentToVerify.DocumentPath} must have attributes.", FErrorSeverity.Error);
+                FError.ThrowError(11, $"The node {DocumentToVerify.DocumentXML.FirstChild.Name} in document {DocumentToVerify.DocumentPath} must have attributes.", FErrorSeverity.FatalError);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        internal bool FStartApp_VerifyAttributes(XmlNode NodeToVerify)
+        {
+            if (NodeToVerify.Attributes.Count == 0)
+            {
+                FError.ThrowError(11, $"The node {NodeToVerify.Name} must have attributes.", FErrorSeverity.FatalError);
                 return false;
             }
             else
@@ -224,7 +322,7 @@ namespace Fuchsia.InformationEngine
         {
             if (!DocumentToVerify.DocumentXML.FirstChild.HasChildNodes)
             {
-                FError.ThrowError(13, $"The node {DocumentToVerify.DocumentXML.FirstChild.Name} in document {DocumentToVerify.DocumentPath} must have child nodes.", FErrorSeverity.Error);
+                FError.ThrowError(13, $"The node {DocumentToVerify.DocumentXML.FirstChild.Name} in document {DocumentToVerify.DocumentPath} must have child nodes.", FErrorSeverity.FatalError);
                 return false;
             }
             else
@@ -233,6 +331,39 @@ namespace Fuchsia.InformationEngine
             }
         }
 
+        /// <summary>
+        /// Internal API for verifying that an XML node has child nodes. Throws error 24 and returns false if failed.
+        /// </summary>
+        /// <param name="DocumentToVerify">The XmlDocument to verify</param>
+        /// <returns>true if the verification was successful, throws error 24 and returns false otherwise.</returns>
+        internal bool FStartApp_VerifyChildNodes(XmlDocument DocumentToVerify)//public variant too
+        {
+            XmlNode FFirstChildToVerify = DocumentToVerify.FirstChild;
+
+            if (FFirstChildToVerify != null)
+            {
+                while (FFirstChildToVerify.Name == "#comment")
+                {
+                    FFirstChildToVerify = FFirstChildToVerify.NextSibling;
+                }
+
+                if (!FFirstChildToVerify.HasChildNodes)
+                {
+                    FError.ThrowError(24, $"The node {FFirstChildToVerify.Name} in an XmlDocument must have child nodes.", FErrorSeverity.Error);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                FError.ThrowError(24, $"The XmlDocument must have child nodes.", FErrorSeverity.Error);
+                return false;
+            }
+
+        }
         public bool FGetDocumentMetadata(IFDocument DocumentToGetMetadata)
         {
             FError.ThrowError(12, $"API call not implemented", FErrorSeverity.FatalError);

@@ -51,12 +51,14 @@
   <ItemGroup>
     <Compile Include="FApp\FApp.cs" />
     <Compile Include="FApp\FApp.Start.cs" />
+    <Compile Include="FDocument\FDocument.API.cs" />
     <Compile Include="FDocument\FDocument.cs" />
     <Compile Include="FDocument\FDocument.Parse.cs" />
     <Compile Include="FDocument\IFApp.cs" />
     <Compile Include="FDocument\IFDocument.cs" />
     <Compile Include="FIECore.cs" />
     <Compile Include="FMXAML\FMXaml.Reader.Main.cs" />
+    <Compile Include="FMXAML\FMXaml.Reader.Parse.Doclink.cs" />
     <Compile Include="FMXAML\FMXaml.Reader.Parse.Paragraph.cs" />
     <Compile Include="FMXAML\FMXaml.Reader.Parse.TextBlock.cs" />
     <Compile Include="FMXAML\FMXaml.TextAPI.cs" />
@@ -65,6 +67,9 @@
     </Compile>
     <Compile Include="FuchsiaError.xaml.cs">
       <DependentUpon>FuchsiaError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FuchsiaUX\FUXDoclink.xaml.cs">
+      <DependentUpon>FUXDoclink.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FuchsiaHome.xaml.cs">
@@ -84,9 +89,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FuchsiaUX\FUXDoclink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FTextBox\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
