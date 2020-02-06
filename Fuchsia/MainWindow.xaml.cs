@@ -37,7 +37,7 @@ namespace Fuchsia
         {
             InitializeComponent();
             InformationEngine = new FInfoEngine();
-            ParseCLIArgs();
+            //ParseCLIArgs();
         }
 
         internal void ParseCLIArgs()
