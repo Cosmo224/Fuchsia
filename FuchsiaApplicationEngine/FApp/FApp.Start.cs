@@ -62,7 +62,7 @@ namespace Fuchsia.InformationEngine
                 FApp.AppPath = PathToApp;
                 FApp = FStartApp_ParseAppXml(FApp, FApp.AppPage);
                 FApp.Documents = new List<IFDocument>();
-                FApp.Documents = FStartApp_LoadDocuments(FApp, FApp.Documents);
+                FApp.Documents = FStartApp_LoadDocuments(FApp, FApp.Documents, false);
                 FApp.TitlePage = FStartApp_LoadTitlePage(FApp);
 
                 return FApp;
@@ -211,11 +211,11 @@ namespace Fuchsia.InformationEngine
         /// </summary>
         /// <param name="AppToLoadDocumentsOf">The App to load the Document of.</param>
         /// <returns></returns>
-        internal List<IFDocument> FStartApp_LoadDocuments(IFApp AppToLoadDocumentsOf, List<IFDocument> FDocument)
+        internal List<IFDocument> FStartApp_LoadDocuments(IFApp AppToLoadDocumentsOf, List<IFDocument> FDocument, bool FMode = true)
         {
             List<IFDocument> FDocumentList = FDocument;
 
-            XmlDocument FDocumentDefinitionsXML = FStartApp_LoadDocumentDefinitionsXML(AppToLoadDocumentsOf);
+            XmlDocument FDocumentDefinitionsXML = FStartApp_LoadDocumentDefinitionsXML(AppToLoadDocumentsOf, FMode);
 
             FDocumentList = FStartApp_ParseDocumentDefinitionsXML(FDocumentDefinitionsXML, FDocumentList);
 
@@ -227,10 +227,18 @@ namespace Fuchsia.InformationEngine
         /// </summary>
         /// <param name="AppToLoadDocumentDefinitionsOf">The App to load the document of.</param>
         /// <returns></returns>
-        internal XmlDocument FStartApp_LoadDocumentDefinitionsXML(IFApp AppToLoadDocumentDefinitionsOf) // loads the document definition xml.
+        internal XmlDocument FStartApp_LoadDocumentDefinitionsXML(IFApp AppToLoadDocumentDefinitionsOf, bool FMode = true) // loads the document definition xml.
         {
             XmlDocument FXMLDocument = new XmlDocument();
-            FXMLDocument.Load($"{AppToLoadDocumentDefinitionsOf.AppPath}\\{AppToLoadDocumentDefinitionsOf.AppName}\\DocumentDefinitions.xml");
+
+            if (FMode)
+            {
+                FXMLDocument.Load($"{AppToLoadDocumentDefinitionsOf.AppPath}\\{AppToLoadDocumentDefinitionsOf.AppName}\\DocumentDefinitions.xml");
+            }
+            else
+            {
+                FXMLDocument.Load($"{AppToLoadDocumentDefinitionsOf.AppPath}\\{AppToLoadDocumentDefinitionsOf.AppName}\\DocumentDefinitions.xml");
+            }
 
             return FXMLDocument; 
         }
