@@ -63,7 +63,7 @@ namespace Fuchsia.InformationEngine
                 FApp = FStartApp_ParseAppXml(FApp, FApp.AppPage);
                 FApp.Documents = new List<IFDocument>();
                 FApp.Documents = FStartApp_LoadDocuments(FApp, FApp.Documents, false);
-                FApp.TitlePage = FStartApp_LoadTitlePage(FApp);
+                FApp.TitlePage = FStartApp_LoadTitlePage(FApp, false);
 
                 return FApp;
             }
@@ -237,7 +237,7 @@ namespace Fuchsia.InformationEngine
             }
             else
             {
-                FXMLDocument.Load($"{AppToLoadDocumentDefinitionsOf.AppPath}\\{AppToLoadDocumentDefinitionsOf.AppName}\\DocumentDefinitions.xml");
+                FXMLDocument.Load($"{AppToLoadDocumentDefinitionsOf.AppPath}\\DocumentDefinitions.xml");
             }
 
             return FXMLDocument; 
@@ -300,10 +300,18 @@ namespace Fuchsia.InformationEngine
         /// </summary>
         /// <param name="AppToLoadTitlePageOf">The app to load the title page of.</param>
         /// <returns>An FDocumentTitlePage containing the loaded app title page.</returns>
-        internal FDocumentTitlePage FStartApp_LoadTitlePage(IFApp AppToLoadTitlePageOf)
+        internal FDocumentTitlePage FStartApp_LoadTitlePage(IFApp AppToLoadTitlePageOf, bool FMode = true)
         {
             FDocumentTitlePage FDocumentTitlePage = new FDocumentTitlePage();
-            FDocumentTitlePage.DocumentXML = FLoadXml($"{AppToLoadTitlePageOf.AppPath}\\{AppToLoadTitlePageOf.AppName}\\Title.xml", "Fuchsia");
+
+            if (FMode)
+            {
+                FDocumentTitlePage.DocumentXML = FLoadXml($"{AppToLoadTitlePageOf.AppPath}\\{AppToLoadTitlePageOf.AppName}\\Title.xml", "Fuchsia");
+            }
+            else
+            {
+                FDocumentTitlePage.DocumentXML = FLoadXml($"{AppToLoadTitlePageOf.AppPath}\\Title.xml", "Fuchsia");
+            }
 
             if (!FStartApp_VerifyAttributes(FDocumentTitlePage))
             {
